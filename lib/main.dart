@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_screen.dart'; 
-void main() {
+import 'services/storage_service.dart'; 
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await StorageService.init();
+  
   runApp(const MyApp());
 }
 
@@ -13,10 +18,10 @@ class MyApp extends StatelessWidget {
       title: 'Buscaminas UNIMET',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        brightness: Brightness.light,
+        brightness: StorageService.getTheme() ? Brightness.dark : Brightness.light, // Lee el tema real
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(), 
+      home: const SplashScreen(),
     );
   }
 }

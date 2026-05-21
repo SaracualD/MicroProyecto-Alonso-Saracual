@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'game_screen.dart';
 import 'config_screen.dart';
-import 'instructions_screen.dart'; // Importamos la nueva pantalla
+import 'instructions_screen.dart'; 
+import 'high_scores_screen.dart'; 
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -33,8 +34,11 @@ class MenuScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 _buildMenuButton(context, '🕹️ JUGAR', const GameScreen()),
+                
+                _buildMenuButton(context, '🏆 MARCADORES', const HighScoresScreen()), 
+                
                 _buildMenuButton(context, '⚙️ CONFIGURACIÓN', const ConfigScreen()),
-                _buildMenuButton(context, '📖 CÓMO JUGAR', const InstructionsScreen()), // Requerimiento 3.4
+                _buildMenuButton(context, '📖 CÓMO JUGAR', const InstructionsScreen()), 
               ],
             ),
           ),
