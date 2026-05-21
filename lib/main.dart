@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'services/storage_service.dart';
-
+import 'services/storage_service.dart'; 
+import 'screens/splash_screen.dart';
+import 'screens/menu_screen.dart'; 
+import 'screens/game_screen.dart';
+import 'screens/high_scores_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); 
-  await StorageService.init(); 
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageService.init();
   runApp(const BuscaMinasApp());
 }
 
 class BuscaMinasApp extends StatefulWidget {
-  const BuscaMinasApp({Key? key}) : super(key: key);
+  const BuscaMinasApp({super.key});
 
   @override
   State<BuscaMinasApp> createState() => _BuscaMinasAppState();
@@ -18,7 +21,6 @@ class BuscaMinasApp extends StatefulWidget {
 class _BuscaMinasAppState extends State<BuscaMinasApp> {
   bool isDarkMode = StorageService.getTheme();
 
-  // Función para cambiar el tema en tiempo real
   void toggleTheme(bool dark) {
     setState(() {
       isDarkMode = dark;
@@ -29,17 +31,17 @@ class _BuscaMinasAppState extends State<BuscaMinasApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Buscaminas',
+      title: 'Buscaminas UNIMET',
       debugShowCheckedModeBanner: false,
-      theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
-      
-      // La ruta inicial del juego
+      theme: isDarkMode 
+          ? ThemeData(brightness: Brightness.dark, primarySwatch: Colors.blue) 
+          : ThemeData(brightness: Brightness.light, primarySwatch: Colors.blue),
       initialRoute: '/splash', 
-      
-      // El mapa de rutas (Comentado temporalmente para que no dé error de compilación)
       routes: {
-        // '/splash': (context) => const SplashScreen(),
-        // '/menu': (context) => MainMenu(onThemeChanged: toggleTheme),
+        '/splash': (context) => const SplashScreen(),
+        '/menu': (context) => MenuScreen(onThemeChanged: toggleTheme), 
+        '/game': (context) => const GameScreen(),
+        '/scores': (context) => const HighScoresScreen(),
       },
     );
   }
