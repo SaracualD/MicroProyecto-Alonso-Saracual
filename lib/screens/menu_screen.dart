@@ -5,7 +5,8 @@ import 'instructions_screen.dart';
 import 'high_scores_screen.dart'; 
 
 class MenuScreen extends StatelessWidget {
-  const MenuScreen({super.key});
+  final Function(bool) onThemeChanged;
+  const MenuScreen({super.key, required this.onThemeChanged});
 
   @override
   Widget build(BuildContext context) {

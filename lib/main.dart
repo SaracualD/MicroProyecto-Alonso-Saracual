@@ -1,27 +1,54 @@
 import 'package:flutter/material.dart';
 import 'services/storage_service.dart'; 
+import 'screens/splash_screen.dart';
+import 'screens/menu_screen.dart'; 
+import 'screens/game_screen.dart';
+import 'screens/high_scores_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   await StorageService.init();
   
-  runApp(const MyApp());
+  runApp(const BuscaMinasApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class BuscaMinasApp extends StatefulWidget {
+  const BuscaMinasApp({super.key});
+
+  @override
+  State<BuscaMinasApp> createState() => _BuscaMinasAppState();
+}
+
+class _BuscaMinasAppState extends State<BuscaMinasApp> {
+  // Inicializamos el estado con el tema guardado en el dispositivo
+  bool isDarkMode = StorageService.getTheme();
+
+  void toggleTheme(bool dark) {
+    setState(() {
+      isDarkMode = dark;
+      StorageService.saveTheme(dark);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Buscaminas UNIMET',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: StorageService.getTheme() ? Brightness.dark : Brightness.light, // Lee el tema real
-        primarySwatch: Colors.blue,
-      ),
-      home: const SplashScreen(),
+      
+      theme: isDarkMode 
+          ? ThemeData(brightness: Brightness.dark, primarySwatch: Colors.blue) 
+          : ThemeData(brightness: Brightness.light, primarySwatch: Colors.blue),
+      
+      initialRoute: '/splash', 
+      
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/menu': (context) => MenuScreen(onThemeChanged: toggleTheme), 
+        '/game': (context) => const GameScreen(),
+        '/scores': (context) => const HighScoresScreen(),
+      },
     );
   }
 }
