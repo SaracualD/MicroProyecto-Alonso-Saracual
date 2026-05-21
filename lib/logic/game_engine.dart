@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:micro_proyecto_alonso_saracual/models/cell_model.dart';
+import '../models/cell_model.dart';
 
 class GameEngine {
   late List<List<Cell>> board;
