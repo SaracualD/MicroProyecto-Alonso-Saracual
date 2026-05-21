@@ -1,6 +1,6 @@
 name: Deploy Flutter Web to GitHub Pages
 
-# Esto le dice a GitHub que ejecute este archivo cada vez que suban cambios a 'main'
+#
 on:
   push:
     branches:
@@ -21,8 +21,7 @@ jobs:
         run: flutter pub get
         
       - name: Build Web
-        # IMPORTANTE: Cambia "NOMBRE_DEL_REPO" por el nombre exacto de su repositorio en GitHub
-        run: flutter build web --release --base-href /NOMBRE_DEL_REPO/
+        run: flutter build web --release --base-href /MicroProyecto-Alonso-Saracual/
         
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
